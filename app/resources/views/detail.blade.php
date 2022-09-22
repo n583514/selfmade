@@ -17,6 +17,8 @@
        </div>
     </div>
     <div class='d-flex justify-content-center mt-5'>
+        @auth
+        @if (auth()->user()->role === 0)
         <a href="{{ route('edit.post', ['post' => $detalis['id']]) }}">
             <button class='btn btn btn-outline-dark mx-4'>編集</button>
         </a> 
@@ -24,9 +26,16 @@
         @csrf
             <button type="submit" class="btn btn-outline-danger mx-4">削除</button>
         </form>
-        <a href="{{ route('message.send', ['id' => $detalis['user_id']]) }}">
-        <button type="submit" class="btn btn-outline-dark mx-4">✉</button>
-        </a> 
+        @else (auth()->user() === 1)
+        <form action="{{ route('favorite.post', ['post' => $detalis['id']]) }}" method="POST">
+        @csrf
+            <button class='btn btn btn-outline-dark mx-4'>☆</button>
+        </form>
+        @endif
+        @endauth    
+            <a href="{{ route('message.send', ['id' => $detalis['user_id']]) }}">
+            <button type="submit" class="btn btn-outline-dark mx-4">✉</button>
+            </a> 
         
     </div> 
 </div>  

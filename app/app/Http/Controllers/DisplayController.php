@@ -34,19 +34,16 @@ class DisplayController extends Controller
 
         $message = new Message;
 
-        $user = new User;
-
         //ログイン中ユーザー(Auth::user)が持つ(->)ポートフォリオデータ(post)を得る(get)
         $portfolios = Auth::user()->post()->where('del_flg', '=', '0')->get();
 
         //ログイン中ユーザー宛のメッセージデータを得る
-        $messages = $message->where('receive_id', Auth::user()->id)->join('users', 'users.id', 'messages.send_id')->get()->toArray();
-
-        //$a = $messages['send_id'];
-
-        //$sendusers = $user->where('id', 'send_id')->get();
-
-        var_dump($messages);
+        $messages = $message
+                    ->select('messages.id', 'messages.date', 'users.nickname')
+                    ->join('users', 'users.id', 'messages.send_id')
+                    ->where('receive_id', Auth::user()->id)->get()->toArray();
+        
+        //var_dump($messages);
 
         return view('mypage', [
             'portfolios' => $portfolios,
@@ -73,7 +70,10 @@ class DisplayController extends Controller
         $message = new Message;
 
         //ログイン中ユーザー宛のメッセージデータを得る
-        $messages = $message->where('receive_id', Auth::user()->id)->get();
+        $messages = $message
+                    ->where('messages.id', $id)
+                    ->where('receive_id', Auth::user()->id)
+                    ->join('users', 'users.id', 'messages.send_id')->get()->toArray();
 
         return view('messagedetail', [
             'messages' => $messages,

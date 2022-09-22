@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function message() {
         return $this->hasMany('App\Message');
     }
+
+    //Favoriteモデルとの関連性記述
+    public function favorite() {
+        return $this->hasMany('App\Favorite');
+    }
 }

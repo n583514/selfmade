@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\FavoriteController;
+
 
 
 
@@ -54,5 +56,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     /*メッセージ詳細画面*/
     Route::get('/message/{id}/detail', [DisplayController::class, 'messageDetail'])->name('message.detail');
+
+    /*お気に入り登録*/
+    Route::post('/post/favo/{id}', [FavoriteController::class, 'favoritepost'])->name('favorite.post');
+
 });
 
