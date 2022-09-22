@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     //Messageモデルとの関連性記述
     public function message() {
-        return $this->belongsToMany('App\Message');
+        return $this->hasMany('App\Message');
     }
 }

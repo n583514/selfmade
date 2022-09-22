@@ -24,7 +24,7 @@
         @csrf
             <button type="submit" class="btn btn-outline-danger mx-4">削除</button>
         </form>
-        <a href="{{ route('message.send') }}">
+        <a href="{{ route('message.send', ['id' => $detalis['user_id']]) }}">
         <button type="submit" class="btn btn-outline-dark mx-4">✉</button>
         </a> 
         

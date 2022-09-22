@@ -49,7 +49,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/destroy_post/{post}',[RegistrationController::class,'destroyPost'])->name('destroy.post');
 
     /*メッセージ送信用*/
-    Route::get('/message_send',[MessageController::class,'MessageSendForm'])->name('message.send');
-    Route::post('create_post',[MessageController::class,'MessageSend']);
+    Route::get('/message_send/{id}',[MessageController::class,'MessageSendForm'])->name('message.send');
+    Route::post('/message_send/{id}',[MessageController::class,'MessageSend']);
+
+    /*メッセージ詳細画面*/
+    Route::get('/message/{id}/detail', [DisplayController::class, 'messageDetail'])->name('message.detail');
 });
 

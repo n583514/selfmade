@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Post;
 
+use App\Message;
+
+use App\User;
+
 class DisplayController extends Controller
 {
     public function index() {
@@ -25,15 +29,28 @@ class DisplayController extends Controller
     //マイページ表示用
     public function myPage(int $id) {
 
-        //モデルのインスタンスを生成し、変数postに代入
+        //モデルのインスタンスを生成し、変数に代入
         $post = new Post;
+
+        $message = new Message;
+
+        $user = new User;
 
         //ログイン中ユーザー(Auth::user)が持つ(->)ポートフォリオデータ(post)を得る(get)
         $portfolios = Auth::user()->post()->where('del_flg', '=', '0')->get();
 
+        //ログイン中ユーザー宛のメッセージデータを得る
+        $messages = $message->where('receive_id', Auth::user()->id)->join('users', 'users.id', 'messages.send_id')->get()->toArray();
+
+        //$a = $messages['send_id'];
+
+        //$sendusers = $user->where('id', 'send_id')->get();
+
+        var_dump($messages);
 
         return view('mypage', [
             'portfolios' => $portfolios,
+            'messages' => $messages,
         ]);
     }
 
@@ -46,5 +63,22 @@ class DisplayController extends Controller
             'detalis' => $detalis,
         ]);
         
+    }
+
+    //メッセージ詳細画面
+    public function messageDetail(int $id) {
+
+        $post = new Post;
+
+        $message = new Message;
+
+        //ログイン中ユーザー宛のメッセージデータを得る
+        $messages = $message->where('receive_id', Auth::user()->id)->get();
+
+        return view('messagedetail', [
+            'messages' => $messages,
+        ]);
+
+
     }
 }
