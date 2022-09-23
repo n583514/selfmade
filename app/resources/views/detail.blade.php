@@ -26,11 +26,13 @@
         @csrf
             <button type="submit" class="btn btn-outline-danger mx-4">削除</button>
         </form>
-        @else (auth()->user() === 1)
-        <form action="{{ route('favorite.post', ['post' => $detalis['id']]) }}" method="POST">
-        @csrf
+        @else (auth()->user()->role === 1)
+        <a href="{{ route('favorite.post', ['id' => $detalis['id']]) }}">
             <button class='btn btn btn-outline-dark mx-4'>☆</button>
-        </form>
+        </a>
+        <a href="{{ route('favorite.destroy', ['id' => $detalis['id']]) }}">
+            <button class='btn btn btn-outline-dark mx-4'>★</button>
+        </a>
         @endif
         @endauth    
             <a href="{{ route('message.send', ['id' => $detalis['user_id']]) }}">

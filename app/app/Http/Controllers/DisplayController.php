@@ -10,6 +10,8 @@ use App\Post;
 
 use App\Message;
 
+use App\Favorite;
+
 use App\User;
 
 class DisplayController extends Controller
@@ -34,6 +36,8 @@ class DisplayController extends Controller
 
         $message = new Message;
 
+        $favorite = new Favorite;
+
         //ログイン中ユーザー(Auth::user)が持つ(->)ポートフォリオデータ(post)を得る(get)
         $portfolios = Auth::user()->post()->where('del_flg', '=', '0')->get();
 
@@ -42,12 +46,20 @@ class DisplayController extends Controller
                     ->select('messages.id', 'messages.date', 'users.nickname')
                     ->join('users', 'users.id', 'messages.send_id')
                     ->where('receive_id', Auth::user()->id)->get()->toArray();
+
+        //ログイン中ユーザー(Auth::user)が持つ(->)お気に入りした投稿(favorite)を得る(get)            
+        $favorites = $favorite
+                    ->select('favorites.post_id', 'posts.id as p_id', 'posts.date', 'posts.image', 'users.id', 'users.nickname')
+                    ->join('posts', 'posts.id', 'favorites.post_id')
+                    ->join('users', 'users.id', 'posts.user_id')
+                    ->where('favorites.user_id', Auth::user()->id)->get()->toArray();
         
-        //var_dump($messages);
+        
 
         return view('mypage', [
             'portfolios' => $portfolios,
             'messages' => $messages,
+            'favorites' => $favorites,
         ]);
     }
 

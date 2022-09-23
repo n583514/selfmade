@@ -58,7 +58,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/message/{id}/detail', [DisplayController::class, 'messageDetail'])->name('message.detail');
 
     /*お気に入り登録*/
-    Route::post('/post/favo/{id}', [FavoriteController::class, 'favoritepost'])->name('favorite.post');
+    Route::get('/post/favo/{id}', [FavoriteController::class, 'favoritepost'])->name('favorite.post');
+    /*お気に入り登録削除*/
+    Route::get('/post/unfavo/{id}', [FavoriteController::class, 'favoritedestroy'])->name('favorite.destroy');
+
 
 });
 

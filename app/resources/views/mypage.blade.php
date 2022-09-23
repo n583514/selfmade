@@ -30,8 +30,36 @@
                   </tbody>
                </table>
             </div>
+
             @else (auth()->user() === 1)
+
             <h5 class="my-3">お気に入り</h5>
+            <div class="border card-body">
+               <table class='table'>
+                  <tbody>
+                     @foreach($favorites as $favorite)
+                        <tr>
+                           <td>
+                              <a href="{{ route('favorite.destroy', ['id' => $favorite['p_id']]) }}">
+                                 <button class='btn btn btn-outline-dark mx-0'>★</button>
+                              </a>
+                           </td>
+                           <th scope='col'>
+                              <img src="{{ asset('storage/image/' . $favorite['image']) }}" width="200px" height="100px" class=""/>
+                           </th> 
+                           <td scope='col'>{{ $favorite['nickname'] }}</td>
+                           <td scope='col'>
+                              <a href="{{ route('post.detail', ['post' => $favorite['post_id']]) }}">
+                                 <button type='button' class='btn btn-outline-dark'>></button>
+                              </a>
+
+                           </td>
+                     @endforeach
+                        </tr>
+                     
+                  </tbody>
+               </table>
+            </div>
             @endif
             @endauth
        </div>
