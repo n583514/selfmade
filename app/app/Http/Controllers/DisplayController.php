@@ -16,15 +16,26 @@ use App\User;
 
 class DisplayController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
 
-        $posts = new Post;
+        //$posts = new Post;
 
-        $newports = $posts->where('del_flg', '=', '0')->get();
+        $keywords = $request->input('keywords');
+
+        $query = Post::query();
+
+        if(!empty($keywords)) {
+            $query->where('comment', 'LIKE', "%{ $keywords }%");
+        }
+
+        //$newports = $posts->where('del_flg', '=', '0')->get();
+
+        $newports = $query->get();
 
 
         return view('home', [
             'newports' => $newports,
+            'keywords' => $keywords, 
         ]);
     }
 

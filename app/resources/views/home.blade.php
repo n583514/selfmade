@@ -28,8 +28,13 @@
        </div>
        <div class="col-md-3 mt-5 text-center">
           <h5 class="my-3">検索</h5>
-          <div class="">
-            <p class="border">？？</p>
+          <div class="border card-body">
+            <form action="{{ route('post.index') }}" method="GET">
+            @csrf
+               <label for='keywords'>キーワード検索</label>
+                  <input type="text" name="keywords"/>
+               <button type="submit" class="btn btn-outline-dark mx-4 mt-3">検索</button>
+            </form>
           </div>
        </div>
     </div>

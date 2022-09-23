@@ -31,7 +31,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
 
     /*ホーム画面表示*/
-    Route::get('/', [DisplayController::class, 'index']);
+    Route::get('/', [DisplayController::class, 'index'])->name('post.index');
 
     /*マイページ表示用*/
     Route::get('/my_page/{id}', [DisplayController::class, 'myPage'])->name('my.page');
