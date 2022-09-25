@@ -20,22 +20,41 @@ class DisplayController extends Controller
 
         //$posts = new Post;
 
+        $title = '新規投稿';
+
+        //キーワード
         $keywords = $request->input('keywords');
+
+        //カテゴリ
+        $keycategorys = $request->input('keycategorys');
 
         $query = Post::query();
 
+        //キーワード検索
         if(!empty($keywords)) {
-            $query->where('comment', 'LIKE', "%{ $keywords }%");
+            $query->where('comment', 'like', '%' .$keywords. '%');
+            $title = 'キーワード検索結果：' .$keywords. 'を含む';
+        }elseif(!empty($keycategorys)) {
+            $query->where('category', $keycategorys);
+            if($keycategorys == '1') {
+                $category = 'アイコン';
+            }elseif($keycategorys == '2') {
+                $category = 'Webデザイン';
+            }else {
+                $category = 'その他';
+            }
+            $title = 'カテゴリ検索結果：' .$category;
         }
 
         //$newports = $posts->where('del_flg', '=', '0')->get();
 
-        $newports = $query->get();
+        $posts = $query->get();
 
 
         return view('home', [
-            'newports' => $newports,
+            'posts' => $posts,
             'keywords' => $keywords, 
+            'title' => $title,
         ]);
     }
 

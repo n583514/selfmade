@@ -10,9 +10,9 @@
                    @csrf
                         <label for="category">カテゴリ</label>
                            <select name='category' class='form-control'>
-                               <option value='0'>アイコン</option>
-                               <option value='1'>Webデザイン</option>
-                               <option value='2'>その他</option>
+                               <option value='1'>アイコン</option>
+                               <option value='2'>Webデザイン</option>
+                               <option value='3'>その他</option>
                             </select>
                         <label for='image'>画像</label>
                             <input type="file" name="image" id='image' value=""/>
