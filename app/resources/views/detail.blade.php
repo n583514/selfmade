@@ -33,11 +33,11 @@
         <a href="{{ route('favorite.destroy', ['id' => $detalis['id']]) }}">
             <button class='btn btn btn-outline-dark mx-4'>★</button>
         </a>
+        <a href="{{ route('message.send', ['id' => $detalis['user_id']]) }}">
+            <button type="submit" class="btn btn-outline-dark mx-4">✉</button>
+        </a> 
         @endif
         @endauth    
-            <a href="{{ route('message.send', ['id' => $detalis['user_id']]) }}">
-            <button type="submit" class="btn btn-outline-dark mx-4">✉</button>
-            </a> 
         
     </div> 
 </div>  

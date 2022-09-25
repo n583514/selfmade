@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\CreatePost;
+
 use App\Post;
 
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,7 @@ class RegistrationController extends Controller
     }
 
     //ポートフォリオ新規登録用(POST送信された場合)
-    public function createPost(Request $request) {
+    public function createPost(CreatePost $request) {
 
         //postインスタンス作成
         $post = new Post;
@@ -49,7 +51,7 @@ class RegistrationController extends Controller
     }
 
     //ポートフォリオupdate
-    public function editPost(Post $post, Request $request){
+    public function editPost(Post $post, CreatePost $request){
 
         $image_path = $request->file('image')->store('public/image');
 

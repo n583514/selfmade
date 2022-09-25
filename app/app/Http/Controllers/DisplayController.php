@@ -20,7 +20,7 @@ class DisplayController extends Controller
 
         //$posts = new Post;
 
-        $title = '新規投稿';
+        $title = '新着投稿';
 
         //キーワード
         $keywords = $request->input('keywords');

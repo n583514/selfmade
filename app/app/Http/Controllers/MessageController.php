@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\CreateMessage;
+
+
 use App\Post;
 
 use App\User;
@@ -25,7 +28,7 @@ class MessageController extends Controller
         ]);
     }
 
-    public function MessageSend(int $id, Request $request) {
+    public function MessageSend(int $id, CreateMessage $request) {
 
         $message = new Message;
 

@@ -5,6 +5,17 @@
        <div class="col-md-5 mt-5 text-center">
          <h5 class="my-3">新規メッセージ作成</h5>
             <div class="container mt-3">
+                <div class='panel-body'>
+                    @if($errors->any())
+                    <div class='alert alert-danger'>
+                        <ul>
+                            @foreach($errors->all() as $messages)
+                            <li>{{ $messages }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                </div>
                <form class="border" action="{{ route('message.send', ['id' =>Auth::user()->id])}}" method="post">
                    <div class="form-group mx-5 my-5">
                    @csrf
