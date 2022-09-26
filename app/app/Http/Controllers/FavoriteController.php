@@ -15,9 +15,32 @@ use App\User;
 class FavoriteController extends Controller{
 
     //お気に入り登録
-    public function favoritepost(int $id) {
+    public function like(Request $request) {
 
-        $favorite = new Favorite;
+        $user_id = Auth::user()->id; //1.ログインユーザーのid取得
+        $post_id = $request->post_id; //2.投稿idの取得
+        $already_liked = Favorite::where('user_id', $user_id)->where('post_id', $post_id)->first(); //3.
+
+        if (!$already_liked) { //もしこのユーザーがこの投稿にまだいいねしてなかったら
+            $favorite = new Favorite; //4.Likeクラスのインスタンスを作成
+            $favorite->post_id = $post_id; //Likeインスタンスにreview_id,user_idをセット
+            $favorite->user_id = $user_id;
+            $favorite->save();
+        } else { //もしこのユーザーがこの投稿に既にいいねしてたらdelete
+            Favorite::where('post_id', $post_id)->where('user_id', $user_id)->delete();
+        }
+
+        $favorites = [
+            'favorite' => $favorite,
+        ];
+
+        return response()->json($favorites);
+
+        
+
+        
+
+        /*$favorite = new Favorite;
 
         $ymd = date('Y-m-d');
 
@@ -26,7 +49,7 @@ class FavoriteController extends Controller{
 
         Auth::user()->favorite()->save($favorite);
 
-        return back();
+        return back();*/
 
     }
 
@@ -35,11 +58,11 @@ class FavoriteController extends Controller{
 
         $favorite = new Favorite;
 
-        $record = $favorite->where('post_id', $id)->where('user_id', Auth::user()->id)->delete();
+        $record = $favorite->where('post_id', $id)->where('user_id', Auth::user()->id)->first();
         
-        /*$record->del_flg = '1';
+        $record->del_flg = '1';
 
-        $record->save();*/
+        $record->save();
 
         return back();
 

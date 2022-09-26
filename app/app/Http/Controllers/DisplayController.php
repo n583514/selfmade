@@ -50,7 +50,6 @@ class DisplayController extends Controller
 
         $posts = $query->get();
 
-
         return view('home', [
             'posts' => $posts,
             'keywords' => $keywords, 
@@ -82,7 +81,9 @@ class DisplayController extends Controller
                     ->select('favorites.post_id', 'posts.id as p_id', 'posts.date', 'posts.image', 'users.id', 'users.nickname')
                     ->join('posts', 'posts.id', 'favorites.post_id')
                     ->join('users', 'users.id', 'posts.user_id')
-                    ->where('favorites.user_id', Auth::user()->id)->get()->toArray();
+                    ->where('favorites.user_id', Auth::user()->id)
+                    ->where('favorites.del_flg', '=', '0')
+                    ->get()->toArray();
         
         
 
@@ -98,8 +99,11 @@ class DisplayController extends Controller
 
         $detalis = $post;
 
+        $favorite_model = new Favorite;
+
         return view('detail', [
             'detalis' => $detalis,
+            'favorite_model' => $favorite_model,
         ]);
         
     }

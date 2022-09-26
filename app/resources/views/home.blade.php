@@ -32,14 +32,12 @@
           <h5 class="my-3">検索</h5>
           <div class="border card-body">
             <form action="{{ route('post.index') }}" method="GET">
-            @csrf
                <label for='keywords'>キーワード検索</label>
                   <input type="text" name="keywords" value=""/>
                <button type="submit" class="btn btn-outline-dark mx-4 mt-3">検索</button>
             </form>
 
             <form action="{{ route('post.index') }}" method="GET">
-            @csrf
                <label for='keycategorys' class='mt-3'>カテゴリ検索</label>
                   <select name='keycategorys' class='form-control'>
                      <option value='0'>選択してください</option>

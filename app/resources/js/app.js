@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 
+require('./ajaxfavo.js');
+
 window.Vue = require('vue');
 
 /**

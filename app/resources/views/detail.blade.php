@@ -27,12 +27,18 @@
             <button type="submit" class="btn btn-outline-danger mx-4">削除</button>
         </form>
         @else (auth()->user()->role === 1)
-        <a href="{{ route('favorite.post', ['id' => $detalis['id']]) }}">
-            <button class='btn btn btn-outline-dark mx-4'>☆</button>
-        </a>
-        <a href="{{ route('favorite.destroy', ['id' => $detalis['id']]) }}">
-            <button class='btn btn btn-outline-dark mx-4'>★</button>
-        </a>
+        @if($favorite_model->favo_exist(Auth::user()->id,$detalis->id ))
+        <span class="favorite-marke">
+            <i class="js-favorite-toggle loved fas fa-heart" post_id="{{ $detalis->id }}">★</i>
+            
+        </span>
+        @else
+        <span class="favorite-marke">
+            <button class='js-favorite-toggle btn btn-outline-dark mx-4' post_id="{{ $detalis->id }}">☆</button>
+            
+        </span>
+        @endif
+    
         <a href="{{ route('message.send', ['id' => $detalis['user_id']]) }}">
             <button type="submit" class="btn btn-outline-dark mx-4">✉</button>
         </a> 

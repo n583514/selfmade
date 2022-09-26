@@ -11,4 +11,22 @@ class Favorite extends Model
     public function user() {
         return $this->belongsToMany('App\User');
     }
+
+    public function post() {
+        return $this->belongsToMany('App\Post');
+    }
+
+    public function favo_exist($user_id, $id) {
+
+
+        $exist = Favorite::where('post_id', $id)->where('user_id', $user_id)->get();
+
+        //レコード($exist)が存在するなら
+        if(!$exist->isEmpty()) {
+            return true;
+        }else {
+        //レコード($exsit)が存在しないなら    
+            return false;
+        }
+    }
 }
