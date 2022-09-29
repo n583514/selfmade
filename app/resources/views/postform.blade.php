@@ -16,7 +16,7 @@
                     </div>
                     @endif
                 </div>
-               <form class="border" action="{{ route('create.post')}}" method="post" enctype="multipart/form-data">
+               <form class="border" action="{{ route('self.store')}}" method="post" enctype="multipart/form-data">
                    <div class="form-group mx-5 my-5">
                    @csrf
                         <label for="category">カテゴリ</label>

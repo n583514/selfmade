@@ -33,8 +33,9 @@ class DisplayController extends Controller
         //キーワード検索
         if(!empty($keywords)) {
             $query->where('comment', 'like', '%' .$keywords. '%');
-            $title = 'キーワード検索結果：' .$keywords. 'を含む';
-        }elseif(!empty($keycategorys)) {
+            //$title = 'キーワード検索結果：' .$keywords. 'を含む';
+        }
+        if(!empty($keycategorys)) {
             $query->where('category', $keycategorys);
             if($keycategorys == '1') {
                 $category = 'アイコン';
@@ -43,7 +44,7 @@ class DisplayController extends Controller
             }else {
                 $category = 'その他';
             }
-            $title = 'カテゴリ検索結果：' .$category;
+            //$title = 'カテゴリ検索結果：' .$category;
         }
 
         //$newports = $posts->where('del_flg', '=', '0')->get();
@@ -68,13 +69,14 @@ class DisplayController extends Controller
         $favorite = new Favorite;
 
         //ログイン中ユーザー(Auth::user)が持つ(->)ポートフォリオデータ(post)を得る(get)
-        $portfolios = Auth::user()->post()->where('del_flg', '=', '0')->get();
+        $portfolios = Auth::user()->post()->where('del_flg', '=', '0')->orderBy('date', 'desc')->get();
 
         //ログイン中ユーザー宛のメッセージデータを得る
         $messages = $message
                     ->select('messages.id', 'messages.date', 'users.nickname')
                     ->join('users', 'users.id', 'messages.send_id')
-                    ->where('receive_id', Auth::user()->id)->get()->toArray();
+                    ->where('receive_id', Auth::user()->id)
+                    ->orderBy('messages.date', 'desc')->get()->toArray();
 
         //ログイン中ユーザー(Auth::user)が持つ(->)お気に入りした投稿(favorite)を得る(get)            
         $favorites = $favorite
@@ -83,6 +85,7 @@ class DisplayController extends Controller
                     ->join('users', 'users.id', 'posts.user_id')
                     ->where('favorites.user_id', Auth::user()->id)
                     ->where('favorites.del_flg', '=', '0')
+                    ->orderBy('favorites.created_at', 'desc')
                     ->get()->toArray();
         
         

@@ -6,7 +6,7 @@
          @auth
          @if (auth()->user()->role === 0)
          <h5 class="my-3">ポートフォリオ</h5>
-            <a href="{{ route('create.post') }}">
+            <a href="{{ route('self.create') }}">
                <button type='button' class='btn btn-outline-dark mb-4'>＋</button>
             </a> 
             <div class="border card-body">
@@ -19,7 +19,7 @@
                            </th> 
                            <td scope='col'>{{ $portfolio['date'] }}</td>
                            <td scope='col'>
-                              <a href="{{ route('post.detail', ['post' => $portfolio['id']]) }}">
+                              <a href="{{ route('self.show', ['self' => $portfolio['id']]) }}">
                                  <button type='button' class='btn btn-outline-dark'>></button>
                               </a>
 
@@ -39,17 +39,13 @@
                   <tbody>
                      @foreach($favorites as $favorite)
                         <tr>
-                           <td>
-                              <a href="{{ route('favorite.destroy', ['id' => $favorite['p_id']]) }}">
-                                 <button class='btn btn btn-outline-dark mx-0'>★</button>
-                              </a>
-                           </td>
+                           
                            <th scope='col'>
                               <img src="{{ asset('storage/image/' . $favorite['image']) }}" width="200px" height="100px" class=""/>
                            </th> 
                            <td scope='col'>{{ $favorite['nickname'] }}</td>
                            <td scope='col'>
-                              <a href="{{ route('post.detail', ['post' => $favorite['post_id']]) }}">
+                              <a href="{{ route('self.show', ['self' => $favorite['post_id']]) }}">
                                  <button type='button' class='btn btn-outline-dark'>></button>
                               </a>
 

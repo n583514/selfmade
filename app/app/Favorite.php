@@ -19,7 +19,7 @@ class Favorite extends Model
     public function favo_exist($user_id, $id) {
 
 
-        $exist = Favorite::where('post_id', $id)->where('user_id', $user_id)->get();
+        $exist = Favorite::where('post_id', $id)->where('user_id', $user_id)->where('del_flg', '=', '0')->get();
 
         //レコード($exist)が存在するなら
         if(!$exist->isEmpty()) {

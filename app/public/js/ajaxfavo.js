@@ -1,10 +1,12 @@
 $(function () {
-    //var favorite = $('.js-favorite-toggle');
-    //var favoritePostId;
+    var favorite = $('.js-favorite-toggle');
+    var favoritePostId;
     
-    $('.js-favorite-toggle').on('click', function () {
+    favorite.on('click', function () {
         var $this = $(this);
-        post_id = $this.data('post_id');
+        console.log($this);
+        favoritePostId = $this.data('reviewid');
+        console.log(favoritePostId);
         $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -13,14 +15,16 @@ $(function () {
                 type: 'POST', //受け取り方法の記述（GETもある）
                 dataType: 'json',
                 data: {
-                    'post_id': post_id, //コントローラーに渡すパラメーター
+                    'id': favoritePostId, //コントローラーに渡すパラメーター
                 },
         })
+        
     
             // Ajaxリクエストが成功した場合
             ////コントローラーからのリターンされた値をdataとして指定
             .done(function (data) {
-                alert('成功？');
+                console.log('success');
+                console.log('data');
     //lovedクラスを追加
                 $this.toggleClass('loved'); 
     
@@ -29,13 +33,12 @@ $(function () {
     
             })
             // Ajaxリクエストが失敗した場合
-            .fail(function (data, xhr, err) {
-    //ここの処理はエラーが出た時にエラー内容をわかるようにしておく。
-    //とりあえず下記のように記述しておけばエラー内容が詳しくわかります。笑
-               alert('いいね処理失敗');
-               alert(xhr);
-               alert(err);
-               alert(data);
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+               
+               console.log('error');
+               console.log(XMLHttpRequest.status);
+               console.log(textStatus);
+               console.log(errorThrown);
             });
         
         return false;

@@ -5,9 +5,10 @@
        <div class="col-md-5 mt-5 text-center">
          <h5 class="my-3">ポートフォリオ編集</h5>
             <div class="container mt-3">
-               <form class="border" action="{{ route('edit.post', ['post' =>$result['id']])}}" method="post" enctype="multipart/form-data">
+               <form class="border" action="{{ route('self.update', ['self' =>$result['id']])}}" method="post" enctype="multipart/form-data">
                    <div class="form-group mx-5 my-5">
                    @csrf
+                   @method('PUT')
                         <label for="category">カテゴリ</label>
                            <select name='category' class='form-control'>
                                <option value='0'>アイコン</option>

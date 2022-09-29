@@ -12,29 +12,33 @@
           <div class="card-body">
             <p>{{ $detalis->date }}</p>
             <p>{{ $detalis->comment }}</p>
-            <p>？？？？？？？？？？？？？？？？？？？？？？</p>
+            <p></p>
           </div>
        </div>
     </div>
     <div class='d-flex justify-content-center mt-5'>
         @auth
         @if (auth()->user()->role === 0)
-        <a href="{{ route('edit.post', ['post' => $detalis['id']]) }}">
+        <a href="{{ route('self.edit', ['self' => $detalis['id']]) }}">
             <button class='btn btn btn-outline-dark mx-4'>編集</button>
         </a> 
-        <form action="{{ route('destroy.post', ['post' => $detalis['id']]) }}" method="POST">
+        <form action="{{ route('self.destroy', ['self' => $detalis['id']]) }}" method="POST">
         @csrf
+        @method('DELETE')
             <button type="submit" class="btn btn-outline-danger mx-4">削除</button>
         </form>
         @else (auth()->user()->role === 1)
         @if($favorite_model->favo_exist(Auth::user()->id,$detalis->id ))
         <span class="favorite-marke">
-            <i class="js-favorite-toggle loved fas fa-heart" post_id="{{ $detalis->id }}">★</i>
-            
+            <a class="js-favorite-toggle loved" data-reviewid="{{ $detalis->id }}">
+                <button type="submit" class="btn btn-outline-dark mx-4">★</button>
+            </a>   
         </span>
         @else
         <span class="favorite-marke">
-            <button class='js-favorite-toggle btn btn-outline-dark mx-4' post_id="{{ $detalis->id }}">☆</button>
+            <a class='js-favorite-toggle ' data-reviewid="{{ $detalis->id }}">
+                <button type="submit" class="btn btn-outline-dark mx-4">☆</button>
+            </a>
             
         </span>
         @endif

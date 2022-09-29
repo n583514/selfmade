@@ -24,7 +24,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light p-4 border-bottom">
-            <div class="container">
+            <div class="container center">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     ？
                 </a>

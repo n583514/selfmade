@@ -14,7 +14,7 @@
                            </th> 
                            <td scope='col'>{{ $post['date'] }}</td>
                            <td scope='col'>
-                              <a href="{{ route('post.detail', ['post' => $post['id']]) }}">
+                              <a href="{{ route('self.show', ['self' => $post['id']]) }}">
                                  <button type='button' class='btn btn-outline-dark'>></button>
                               </a>
                            </td>
@@ -32,13 +32,10 @@
           <h5 class="my-3">検索</h5>
           <div class="border card-body">
             <form action="{{ route('post.index') }}" method="GET">
-               <label for='keywords'>キーワード検索</label>
+               <label for='keywords'>キーワード</label>
                   <input type="text" name="keywords" value=""/>
-               <button type="submit" class="btn btn-outline-dark mx-4 mt-3">検索</button>
-            </form>
 
-            <form action="{{ route('post.index') }}" method="GET">
-               <label for='keycategorys' class='mt-3'>カテゴリ検索</label>
+               <label for='keycategorys' class='mt-3'>カテゴリ</label>
                   <select name='keycategorys' class='form-control'>
                      <option value='0'>選択してください</option>
                      <option value='1'>アイコン</option>
